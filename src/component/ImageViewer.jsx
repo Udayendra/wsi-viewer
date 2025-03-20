@@ -128,29 +128,34 @@ export default function ImageViewer() {
     updateZoomPointer();
   };
 
-
   const updateZoomPointer = () => {
     const hubCanvas = hubCanvasRef.current;
     if (!hubCanvas || !hubImageRef.current) return;
-  
+
     const hubCtx = hubCanvas.getContext("2d");
     const { positionX, positionY, scale } = zoomStateRef.current;
-  
+
     hubCtx.clearRect(0, 0, hubCanvas.width, hubCanvas.height);
-    hubCtx.drawImage(hubImageRef.current, 0, 0, hubCanvas.width, hubCanvas.height);
-  
+    hubCtx.drawImage(
+      hubImageRef.current,
+      0,
+      0,
+      hubCanvas.width,
+      hubCanvas.height
+    );
+
     const imgWidth = canvasRef.current.width;
     const imgHeight = canvasRef.current.height;
     const hubWidth = hubCanvas.width;
     const hubHeight = hubCanvas.height;
-  
+
     const zoomArea = {
       x: -positionX / scale,
       y: -positionY / scale,
       width: imgWidth / scale,
       height: imgHeight / scale,
     };
-  
+
     hubCtx.strokeStyle = "blue";
     hubCtx.lineWidth = 1;
     hubCtx.strokeRect(
@@ -160,23 +165,21 @@ export default function ImageViewer() {
       (zoomArea.height / imgHeight) * hubHeight
     );
   };
-  
+
   const handleZoom = () => {
     if (!transformRef.current) return;
     const state = transformRef.current.instance.transformState;
-  
+
     zoomStateRef.current = {
       positionX: state.positionX,
       positionY: state.positionY,
       scale: state.scale,
     };
-  
+
     requestAnimationFrame(() => {
       updateZoomPointer();
     });
   };
-  
-
 
   return (
     <div className="flex flex-col items-center relative w-full h-screen overflow-hidden bg-gray-100">
@@ -324,7 +327,6 @@ export default function ImageViewer() {
           </div>
         </div>
       </div>
-
       <button className="absolute bottom-6 right-6 px-4 py-2 bg-gray-800 text-white rounded-lg transition-all duration-300 ease-in-out animate-shake">
         Report
       </button>
