@@ -16,7 +16,6 @@ A frontend web application for viewing and navigating Whole Slide Images (WSI). 
 - React.js
 - JavaScript
 - Tailwind CSS
-- Vite
 
 ## 🎯 About the Project
 
